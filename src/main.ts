@@ -16,12 +16,7 @@ const doEverything = () => {
   const tsCode = scriptElement.textContent;
 
   // compile TS code
-  const jsCode = `
-    console.log("hello");
-    document.getElementById("testButton").onclick = () => {
-      console.log("you clicked me!");
-    };
-  `;
+  const jsCode = compileTypescript(tsCode);
 
   // add compiled JS to document
   const newScriptElement = document.createElement("script");
@@ -31,4 +26,13 @@ const doEverything = () => {
 
 window.onload = () => {
   doEverything();
+};
+
+const compileTypescript = (tsCode: string): string => {
+  return `
+    console.log("hello");
+    document.getElementById("testButton").onclick = () => {
+      console.log("you clicked me!");
+    };
+  `;
 };
