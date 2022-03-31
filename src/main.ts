@@ -1,3 +1,5 @@
+import * as ts from "typescript";
+
 const scriptTagID = "tsCode";
 
 const doEverything = () => {
@@ -16,7 +18,7 @@ const doEverything = () => {
   const tsCode = scriptElement.textContent;
 
   // compile TS code
-  const jsCode = compileTypescript(tsCode);
+  const jsCode = transpileTypescript(tsCode);
 
   // add compiled JS to document
   const newScriptElement = document.createElement("script");
@@ -24,15 +26,17 @@ const doEverything = () => {
   document.head.appendChild(newScriptElement);
 };
 
-window.onload = () => {
-  doEverything();
+const transpileTypescript = (tsCode: string): string => {
+  const compilerOptions: ts.TranspileOptions = {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+    },
+  };
+  const jsCode = ts.transpileModule(tsCode, compilerOptions);
+  console.log(jsCode);
+  return jsCode.outputText;
 };
 
-const compileTypescript = (tsCode: string): string => {
-  return `
-    console.log("hello");
-    document.getElementById("testButton").onclick = () => {
-      console.log("you clicked me!");
-    };
-  `;
+window.onload = () => {
+  doEverything();
 };

@@ -7,8 +7,9 @@
     "test": "jest --watch",
     "test:ci": "jest",
     "test:coverage": "jest --coverage",
-    "build": "tsc",
-    "build:watch": "tsc --watch"
+    "typecheck": "tsc",
+    "build": "esbuild src/main.ts --bundle --outfile=dist/main.js",
+    "build:watch": "esbuild src/main.ts --bundle --outfile=dist/main.js --watch"
   },
   "author": "Dylan Sprague",
   "license": "MIT",
@@ -18,13 +19,16 @@
     "@types/node": "^16.11.9",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "esbuild": "^0.14.29",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
-    "ts-jest": "^27.0.7",
-    "typescript": "^4.5.2"
+    "ts-jest": "^27.0.7"
+  },
+  "dependencies": {
+    "typescript": "^4.6.3"
   },
   "jest": {
     "preset": "ts-jest",
