@@ -33,8 +33,23 @@ const transpileTypescript = (tsCode: string): string => {
     },
   };
   const jsCode = ts.transpileModule(tsCode, compilerOptions);
-  console.log(jsCode);
   return jsCode.outputText;
+};
+
+const fullyCompileTypescript = (tsCode: string) => {
+  const sourceFile = ts.createSourceFile("", tsCode, ts.ScriptTarget.ESNext);
+
+  const compilerOptions: ts.CompilerOptions = {
+    module: ts.ModuleKind.CommonJS,
+  };
+  const programOptions: ts.CreateProgramOptions = {
+    options: compilerOptions,
+    rootNames: [],
+  };
+
+  const host = ts.createCompilerHost(compilerOptions);
+  const program = ts.createProgram([], compilerOptions, host);
+  program.emit();
 };
 
 window.onload = () => {
